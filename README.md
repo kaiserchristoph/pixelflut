@@ -1,8 +1,8 @@
-# pixelflut
-Pixelflut clients in Python
+# pixelflut Clients
+My interest sparked after joining the battle of https://c3pixelflut.de/ at 38c3.
 
 ## pixelpump
-Simple client for sending png images to the Pixelflut server.
+Simple client for sending png images to a Pixelflut server.
 
 usage: ``python3 pixelpump.py <path_to_png> <host> <port> <num_processes> <pixel_per_package>``
 
