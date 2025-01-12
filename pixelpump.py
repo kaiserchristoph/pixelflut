@@ -13,7 +13,6 @@ def read_image(file_path):
         for y in range(height):
             for x in range(width):
                 r, g, b, a = pixels[x, y]
-                #hex_color = f'{r:02x}{g:02x}{b:02x}{a:02x}'
                 if a == 255:
                     pixel_data = f'PX {x} {y} {r:02x}{g:02x}{b:02x}'
                 elif a == 0:
@@ -59,7 +58,7 @@ def send_pixels(pixel_array, host='localhost', port=1337):
 
 if __name__ == "__main__":
     if len(sys.argv) != 6:
-        print("Usage: python pystorm.py <path_to_png> <host> <port> <num_processes> <packet_size>")
+        print("Usage: python pixelpump.py <path_to_png> <host> <port> <num_processes> <pixels_per_packet>")
         sys.exit(1)
 
     file_path = sys.argv[1]
