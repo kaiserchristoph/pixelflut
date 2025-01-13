@@ -28,6 +28,17 @@ def read_image(file_path):
         return []
 
 
+def apply_offset(pixel_array, x_offset, y_offset):
+    new_pixel_array = []
+    for pixel in pixel_array:
+        command, x, y, color = pixel.split(' ')
+        x = int(x) + x_offset
+        y = int(y) + y_offset
+        new_pixel_array.append(f'{command} {x} {y} {color}')
+    return new_pixel_array
+
+
+
 def split_array(arr, n):
     for i in range(n):
         sub_array = arr[i::n]
@@ -57,20 +68,20 @@ def send_pixels(pixel_array, host='localhost', port=1337):
     
 
 if __name__ == "__main__":
-    if len(sys.argv) != 6:
-        print("Usage: python pixelpump.py <path_to_png> <host> <port> <num_processes> <pixels_per_packet>")
+    if len(sys.argv) != 8:
+        print("Usage: python pixelpump.py <path_to_png> <x-offset> <y-offset> <host> <port> <num_processes> <pixels_per_packet>")
         sys.exit(1)
 
     file_path = sys.argv[1]
-    host = sys.argv[2]
-    port = int(sys.argv[3])
-    num_processes = int(sys.argv[4])
-    packet_size = int(sys.argv[5])
-
+    x_offset = int(sys.argv[2])
+    y_offset = int(sys.argv[3])
+    host = sys.argv[4]
+    port = int(sys.argv[5])
+    num_processes = int(sys.argv[6])
+    packet_size = int(sys.argv[7])
 
     pixel_data = read_image(file_path)
-
-
+    pixel_data = apply_offset(pixel_data, x_offset, y_offset)
     sub_arrays = list(split_array(pixel_data, num_processes))
    
     processes = []
@@ -79,6 +90,5 @@ if __name__ == "__main__":
         process = multiprocessing.Process(target=send_pixels, args=(compressed_array, host, port,))
         processes.append(process)
         process.start()
-
     for process in processes:      
         process.join()    
