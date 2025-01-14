@@ -1,0 +1,3 @@
+bounce
+*bumpy arrays 
+*Berechnungen in extra Prozess, shared memory?
