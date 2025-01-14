@@ -1,3 +1,4 @@
 bounce
-*bumpy arrays 
+*numpy arrays 
 *Berechnungen in extra Prozess, shared memory?
+*vorberechnen?
